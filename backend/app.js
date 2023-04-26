@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import session from 'express-session';
 
 // const file paths
 const __filename = fileURLToPath(import.meta.url);
@@ -18,9 +19,18 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
+
 const app = express();
 
+// body parse to get post data from req.body
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//session management
+app.use(session({
+    secret: 'skupna6sipv',
+    resave: true,
+    saveUninitialized: false
+}));
 
 const PORT = process.env.PORT || 3000;
 

@@ -4,16 +4,15 @@
  * @description :: Routing for authenticated users.
 */
 
-
 import Router from 'express';
 import { userController } from '../controllers/userController.js';
-import { isAuthenticated, isAlreadyLoggedIn } from '../middleware/authMiddleware.js';
 import { __pagesDir } from '../app.js';
+import { isAuthenticated, isAlreadyLoggedIn } from '../middleware/authMiddleware.js';
 
 export var userRouter = Router();
 
 userRouter.get('/', isAuthenticated, (req, res) => {
-    res.send('You are authenticated!');
+    res.sendFile(__pagesDir + "/authenticated-index.html");
 });
 userRouter.get('/register', isAlreadyLoggedIn, (req, res) => {
     res.sendFile(__pagesDir + "/register.html");

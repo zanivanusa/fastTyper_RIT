@@ -4,9 +4,8 @@
  * @description :: Main user model.
 */
 
-
 import mongoose from 'mongoose';
-import hash from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 var Schema = mongoose.Schema;
 
@@ -17,9 +16,9 @@ var userSchema = new Schema({
 });
 
 // middleware function
-userSchema.pre('save', (next) => {
-    var user = this.User;
-    hash(user.password, 10, (err, hash) => {
+userSchema.pre('save', function(next) {
+    var user = this;
+    bcrypt.hash(user.password, 10, (err, hash) => {
         if(err)
           return next(err);
         
@@ -30,24 +29,19 @@ userSchema.pre('save', (next) => {
 
 userSchema.statics.authenticate = (username, password, callback) => {
     // db query
-    User.findOne({username: username}).exec((err, user) => {
-        // error checks
-        if(err) {
-          return callback(err);
-        } 
-        else if (!user) {
-          var err = new Error("User not found");
-          err.status = 401;
-          return callback(err);
-        }
+    userModel.findOne({username: username}).then((user) => {
         // password decryption
-        bcrypt.compare(password, user.password, 
-                        function(err, result) {
+        bcrypt.compare(password, user.password, function(err, result){
             if(result === true)
               return callback(null, user);
             else 
               return callback();
         })
+
+    }).catch((err) => {
+          var err = new Error("User not found");
+          err.status = 401;
+          return callback(err);
     });
 }
 
