@@ -35,16 +35,13 @@ app.use(session({
 const PORT = process.env.PORT || 3000;
 
 import { userRouter } from './routes/userRoutes.js';
+import { textRouter } from './routes/textRoutes.js';
 
 app.use('/users', userRouter);
+app.use('/texts', textRouter);
 
 app.get('/', (req, res) => {
     res.sendFile(__pagesDir + "/index.html");
-});
-
-app.get('/text', (req, res) => {
-    const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget aliqu';
-    return res.json({ text });
 });
 
 app.listen(PORT, () => {
