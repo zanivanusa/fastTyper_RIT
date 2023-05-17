@@ -1,6 +1,7 @@
 import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import React, { useEffect, useState, useRef } from "react";
 import CountdownTimer from "./CountdownTimer";
+import Statistics from './Stats';
 
 const keyboard_container_style = {
   display: "flex",
@@ -175,6 +176,11 @@ function Index() {
             </div>
           </Col>
         </Row>
+        <Row>
+        <Col className="d-flex justify-content-center">
+          <Statistics />
+        </Col>
+      </Row>
         <div style={{ overflow: "hidden", width: "0px" }}>
           <input className="keyboard-input" style={{ display: "absolute", top: "100px" }} ref={inputRef}></input>
         </div>
