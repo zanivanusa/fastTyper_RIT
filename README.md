@@ -11,7 +11,16 @@ Učimo se hitreje tipkat na zanimiv način, kjer lahko tudi testiramo svoje spos
 $ npm install
 ```
 
-2. Start application with (you have to be in the root directory)
+2. Setup database
+
+    1. Rename .env.example to .env
+    ```bash
+    $ mv .env.example .env
+    ```
+    2. Open the file and set the database username/password
+    3. Go to Atlas and add your IP address to the list
+
+3. Start application with (you have to be in the root directory)
 ```bash
 $ npm start
 ```

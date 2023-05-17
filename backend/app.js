@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import session from 'express-session';
+import * as dotenv from 'dotenv'
 
 // const file paths
 const __filename = fileURLToPath(import.meta.url);
@@ -12,13 +13,13 @@ const __projectRoot = path.join(__backend, '..');
 const __frontend = path.join(__projectRoot, 'frontend');
 export const __pagesDir = path.join(__frontend, 'pages');
 
-// mongodb connect
-var mongoDB = 'mongodb://127.0.0.1/fast-typer';
-mongoose.connect(mongoDB);
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error'));
+import { connectToMongoAtlas } from './database.js';
 
+await connectToMongoAtlas();
+
+var db = mongoose.connection;
+db.on('error', (err) => console.log(`Could not connect: ${err}`));
+db.on('error', () => console.log("Connected to Atlas DB"));
 
 const app = express();
 
