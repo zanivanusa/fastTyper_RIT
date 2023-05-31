@@ -36,10 +36,10 @@ function Login() {
     <Container fluid style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
     <Row>
       <Col className="d-flex justify-content-center">
-        <Card style={{ width: "50%" }}>
-          <Card.Img variant="top" src="/logotipBarvni.svg"></Card.Img>
+        <Card style={{ width: "50%", backgroundColor: "lightgray", border: "5px solid black"}}>
+          <Card.Img variant="top" src="/LogotipCrnoBeli.svg" style={{width: "75%", alignSelf: "center"}}></Card.Img>
           <Card.Body>
-            <Card.Title>Login</Card.Title>
+            <Card.Title>LOGIN</Card.Title>
 
             <Form onSubmit={handleLogin}>
               <Form.Group className="mb-3" controlId="username">

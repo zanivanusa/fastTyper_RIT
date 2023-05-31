@@ -2,6 +2,7 @@ import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import React, { useEffect, useState, useRef } from "react";
 import CountdownTimer from "./CountdownTimer";
 import Statistics from './Stats';
+import './Style.css'
 
 const keyboard_container_style = {
   display: "flex",
@@ -14,7 +15,7 @@ const keyboard_container_style = {
 const key_container_style = {
   height: "40px",
   width: "40px",
-  margin: "1px",
+  margin: "10px", // Adjust the margin value as per your preference
   boxSizing: "border-box",
   border: "1px solid black",
   borderRadius: "2px",
@@ -153,6 +154,7 @@ function Index() {
       {playing && <>
         <Row>
           <Col className="d-flex justify-content-center">
+            <img alt="" src="/TimerIcon.png" width="30" height="30" className="d-inline-block align-top"></img>
             <CountdownTimer onTimerEnd={handleTimerEnd} />
           </Col>
         </Row>
@@ -188,8 +190,9 @@ function Index() {
       {showScore &&
         <>
           <Row>
-            <Col className="text-center">
-              <h5>Accuracy: {accuracy}%</h5>
+            <Col className="d-flex justify-content-center">
+              <img alt="" src="/TargetIcon.png" width="30" height="30" className="d-inline-block align-top"></img>
+              <h5> Accuracy: {accuracy}%</h5>
             </Col>
           </Row>
         </>}
