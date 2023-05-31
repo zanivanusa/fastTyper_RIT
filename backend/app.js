@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import session from 'express-session';
 import * as dotenv from 'dotenv'
+import cors from 'cors';
 
 // const file paths
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +23,7 @@ db.on('error', (err) => console.log(`Could not connect: ${err}`));
 db.on('error', () => console.log("Connected to Atlas DB"));
 
 const app = express();
+app.use(cors());
 
 // body parse to get post data from req.body
 app.use(bodyParser.urlencoded({ extended: false }));

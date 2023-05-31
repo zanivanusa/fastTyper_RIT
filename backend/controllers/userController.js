@@ -32,12 +32,27 @@ async function show(req, res) {
     });
 }
 
+const validateHuman = async (token) => {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`, { method: 'POST' });
+  const data = await response.json();
+  return data.success;
+}
+
 async function create(req, res) {
     var user = new userModel({
         username : req.body.username,
         email : req.body.email,
         password : req.body.password
     });
+
+  const human = await validateHuman(req.body.token);
+  if (!human) {
+    return res.status(500).json({
+      message: 'Error when creating user',
+      error: 'You are not human'
+    });
+  }
 
     await user.save().then(() => {
         return res.sendStatus(200);
