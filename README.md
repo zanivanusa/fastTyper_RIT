@@ -13,12 +13,12 @@ $ npm install
 
 2. Setup database
 
-    1. Rename .env.example to .env
-    ```bash
-    $ mv .env.example .env
-    ```
-    2. Open the file and set the database username/password
-    3. Go to Atlas and add your IP address to the list
+	* Rename .env.example to .env
+	```bash
+	$ mv .env.example .env
+	```
+	* Open the file and set the database username/password
+	* Go to Atlas and add your IP address to the list
 
 3. Start application with (you have to be in the root directory)
 ```bash

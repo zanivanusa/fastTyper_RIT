@@ -6,6 +6,7 @@
 
 import { userModel } from '../models/userModel.js';
 
+// gets all users
 async function list(req, res) {
     userModel.find().then((users) => {
         return res.json(users);
@@ -17,8 +18,9 @@ async function list(req, res) {
     });
 }
 
+// gets one user
 async function show(req, res) {
-    var id = req.params.id;
+    var id = req.session.userId;
 
     userModel.findOne({_id: id}).then((user) => {
         return res.json(user);
@@ -38,7 +40,7 @@ async function create(req, res) {
     });
 
     await user.save().then(() => {
-        return res.redirect('/');
+        return res.sendStatus(200);
     }).catch((err) => {
         return res.status(500).json({
                 message: 'Error when creating user',
@@ -48,7 +50,7 @@ async function create(req, res) {
 }
 
 async function update(req, res) {
-    var id = req.params.id;
+    var id = req.session.userId;
 
     userModel.findOne({_id: id}).then(async (user) => {
         // check if any new data
@@ -58,7 +60,7 @@ async function update(req, res) {
         user.password = req.body.password ?
                         req.body.password : user.password;
         await user.save().then(() => {
-              return res.redirect('/');
+              return res.sendStatus(200);
         }).catch((err) => {
             return res.status(500).json({
                     message: 'Error when creating user',
@@ -75,10 +77,10 @@ async function update(req, res) {
 }
 
 function remove(req, res) {
-    var id = req.params.id;
+    var id = req.session.userId;
 
     userModel.findByIdAndRemove({id}).then((user) => {
-        return res.status(204).json();
+        return res.sendStatus(200);
     }).catch((err) => {
         return res.status(500).json({
             message: 'Error when deleting the user.',
@@ -98,7 +100,7 @@ function login(req, res, next){
             } else {
                 req.session.userId = user._id;
                 req.session.username = user.username;
-                return res.redirect('/users/');
+                return res.sendStatus(200);
             }
     });
 }
@@ -109,7 +111,7 @@ function logout(req, res){
             if(err)
               return next(err);
             else
-              return res.redirect('/');
+              return res.sendStatus(200);
         });
     }
 }

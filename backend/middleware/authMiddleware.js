@@ -11,8 +11,10 @@ export function isAuthenticated(req, res, next) {
 // checks if the user is alread logged in and redirects him away from
 // login and register page
 export function isAlreadyLoggedIn(req, res, next) {
-    if(req.session && req.session.userId)
-        return res.redirect('/users/');
+    if(req.session && req.session.userId) {
+        const errText = "You are already logged in.";
+        return next(res.json({errText}));
+    }
     else 
         return next();
 }
