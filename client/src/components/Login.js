@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import {Container, Row, Col, Card, Form, Button} from 'react-bootstrap';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     const requestBody = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
     fetch('http://localhost:3000/users/login', {
@@ -17,10 +19,11 @@ function Login() {
       .then(response => {
         if (response.ok) {
           console.log('Login successful');
-          // Handle successful login (e.g., redirect to a logged-in page)
+          window.location.href = "/";
         } else {
           console.log('Login failed');
           // Handle login failure (e.g., display an error message)
+          console.log(process.env.REACT_APP_RECAPTCHA_SITE_KEY);
         }
       })
       .catch(error => {
@@ -30,24 +33,32 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-      />
-      <br />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
-      <br />
-      <button onClick={handleLogin}>Login</button>
-    </div>
+    <Container fluid style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+    <Row>
+      <Col className="d-flex justify-content-center">
+        <Card style={{ width: "50%" }}>
+          <Card.Img variant="top" src="/logotipBarvni.svg"></Card.Img>
+          <Card.Body>
+            <Card.Title>Login</Card.Title>
+
+            <Form onSubmit={handleLogin}>
+              <Form.Group className="mb-3" controlId="username">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="User" value={username} onChange={(e) => {setUsername(e.target.value)}}></Form.Control>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="" value={password} onChange={(e) => {setPassword(e.target.value)}}></Form.Control>
+              </Form.Group>
+
+              <Button variant="primary" type="submit" name="submit">Login</Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
+    </Container>
   );
 }
 
