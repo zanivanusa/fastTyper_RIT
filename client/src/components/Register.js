@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const reRef = useRef();
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
+    const token = await reRef.current.executeAsync();
+    reRef.current.reset();
+    
     const formData = new URLSearchParams();
     formData.append('username', username);
     formData.append('email', email);
     formData.append('password', password);
-  
+    formData.append('token', token);  // reCAPTCHA token
+
     fetch('http://localhost:3000/users/register', {
         method: 'POST',
       headers: {
@@ -61,6 +67,11 @@ function Register() {
       />
       <br />
       <button onClick={handleRegister}>Register</button>
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        size='invisible'
+        ref={reRef}
+      />
     </div>
   );
 }
