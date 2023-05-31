@@ -8,7 +8,9 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     const requestBody = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
-
+    console.log(username);
+    console.log("username");
+    console.log(password);
     fetch('http://localhost:3000/users/login', {
       method: 'POST',
       headers: {

@@ -105,6 +105,8 @@ function remove(req, res) {
 }
 
 function login(req, res, next){
+    //user ni settan?
+    //console.log(user);
     userModel.authenticate(req.body.username, 
         req.body.password, 
         function(error, user) {

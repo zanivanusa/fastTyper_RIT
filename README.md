@@ -17,7 +17,8 @@ $ npm install
 	```bash
 	$ mv .env.example .env
 	```
-	* Open the file and set the database username/password
+	* Open the file and set the database username/password and recaptcha keys
+	* Also copy the .env file to the client folder.
 	* Go to Atlas and add your IP address to the list
 
 3. Start application with (you have to be in the root directory)
