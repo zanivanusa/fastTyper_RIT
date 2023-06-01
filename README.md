@@ -10,7 +10,11 @@ Učimo se hitreje tipkat na zanimiv način, kjer lahko tudi testiramo svoje spos
 ```bash
 $ npm install
 ```
-
+In client;(zan - se morem popravit)
+```
+$ npm install chart.js
+$ npm install react-chartjs-2
+```
 2. Setup database
 
 	* Rename .env.example to .env
