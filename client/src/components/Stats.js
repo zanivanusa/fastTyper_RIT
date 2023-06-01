@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Line } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables); // Register necessary chart components
 
 function Statistics() {
   const [keyPressCount, setKeyPressCount] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(0);
   const [startTime, setStartTime] = useState(Date.now());
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: 'Keys Pressed',
+        data: [],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+    ],
+  });
 
   useEffect(() => {
     console.log('Component mounted');
@@ -33,37 +48,48 @@ function Statistics() {
       } else {
         setTypingSpeed(keyPressCount);
         console.log(elapsedTime);
-
       }
-    };
 
-    const generateMockData = () => {
-      setKeyPressCount(0);
+      // Update chart data
+      setChartData((prevData) => ({
+        labels: [...prevData.labels, Math.floor(elapsedTime)], // Add the seconds passed as a label for each update
+        datasets: [
+          {
+            ...prevData.datasets[0],
+            data: [...prevData.datasets[0].data, keyPressCount], // Add the new key press count value
+          },
+        ],
+      }));
     };
 
     const updateStatisticsInterval = setInterval(updateTypingSpeed, 1000);
 
-    const generateDataButton = document.getElementById('generateData');
-    if (generateDataButton) {
-      generateDataButton.addEventListener('click', generateMockData);
-    }
-
     return () => {
       clearInterval(updateStatisticsInterval);
-
-      if (generateDataButton) {
-        generateDataButton.removeEventListener('click', generateMockData);
-      }
     };
   }, [keyPressCount, startTime]);
 
   return (
     <div style={{ marginTop: '20px' }}>
       <div>Keys Pressed: <span id="keypressCount">{keyPressCount}</span></div>
-      <div>Typing Speed: {typingSpeed} keys per minute</div>
-      <Button id="generateData" variant="dark" style={{ marginTop: '10px', marginLeft: '80px' }}>
-        Reset
-      </Button>
+
+      {/* Render the chart */}
+        <Line data={chartData} options={{
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Seconds Passed',
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Keys Pressed',
+              },
+            },
+          },
+        }} />
     </div>
   );
 }
