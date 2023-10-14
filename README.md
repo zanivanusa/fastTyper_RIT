@@ -5,12 +5,16 @@ Ko uporabnik tipka se tekst dinamično spreminja.
 Aplikacija beleži uporabnikov napredek ter statistiko, hkrati pa nudi razne igre podobne typeracer-ju
 Učimo se hitreje tipkat na zanimiv način, kjer lahko tudi testiramo svoje sposobnosti in analiziramo naš napredek.
 
+![image](https://github.com/zanivanusa/fastTyper_RIT/assets/60394411/a6c64716-7dc3-49a5-8f21-0ad02c1f8276)
+![image](https://github.com/zanivanusa/fastTyper_RIT/assets/60394411/3da43e64-772c-4a93-a2b2-067136c0e27b)
+
+
 ## Setup
 1. Install dependencies with
 ```bash
 $ npm install
 ```
-In client;(zan - se morem popravit)
+In client folder;
 ```
 $ npm install chart.js
 $ npm install react-chartjs-2
