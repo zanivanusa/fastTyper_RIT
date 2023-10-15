@@ -1,5 +1,5 @@
 # FastTyper  
-Spletna aplikacija, ki omogoča učenje deset-prstnega tipkanja.
+Spletna aplikacija, narejena v MERN stack-u, ki omogoča učenje deset-prstnega tipkanja.
 Uporabniku poda izsek teksta ter prikaže pozicije prstov.
 Ko uporabnik tipka se tekst dinamično spreminja.
 Aplikacija beleži uporabnikov napredek ter statistiko, hkrati pa nudi razne igre podobne typeracer-ju
